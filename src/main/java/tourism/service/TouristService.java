@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tourism.model.TouristAttraction;
 import tourism.repository.TouristRepository;
 
+
+
 import java.util.*;
 
 @Service
@@ -12,7 +14,7 @@ public class TouristService {
 
     private final TouristRepository touristRepository;
 
-    @Autowired
+    //@Autowired
     public TouristService(TouristRepository touristRepository) {
         this.touristRepository = touristRepository;
     }

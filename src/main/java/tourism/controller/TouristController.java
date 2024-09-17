@@ -10,12 +10,12 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Controller
-@RequestMapping("/attractions")
+//@RequestMapping("/attractions")
 public class TouristController {
 
     private final TouristService touristService;
 
-    @Autowired
+   // @Autowired
     public TouristController(TouristService touristService) {
         this.touristService = touristService;
     }
@@ -24,14 +24,14 @@ public class TouristController {
     public String showAttractions(Model model) {
         List<TouristAttraction> attractions = touristService.getAllAttractions();
         model.addAttribute("attractions", attractions);
-        return "attractions";
+        return "attractionList";
     }
 
     @GetMapping("/{name}")
     public String showAttractionDetails(@PathVariable String name, Model model) {
         TouristAttraction attraction = touristService.getAttractionByName(name);
         model.addAttribute("attraction", attraction);  // Use singular 'attraction' for the object
-        return "attractionDetails";
+        return "tags";
     }
 
     @PostMapping("/save")
