@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-
+    <link rel="stylesheet" href="../static/main.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -9,7 +9,6 @@
 
 //start side
 TO-DO:
-    1) link til CSS
     2) indsæte tabeller med turist attraktioner
     3) indføre funktionaliteten
         -> 3x mængden af attraktion tabeller skal initailiseres hver gang man trykker på knappen
@@ -23,6 +22,40 @@ TO-DO:
 
 
 <h1>Tourist attractions</h1>
-<div></div>
+<div>
+    <table>
+        <tr>
+            <th>Navn</th>
+            <th>Beskrivelse</th>
+            <th>Tags</th>
+        </tr>
+        <tr>
+            <td>Tivoli</td>
+            <td>tivoli beskrivelse</td>
+            <td>Tags</td>
+        </tr>
+        <tr>
+            <td>Nyhavn</td>
+            <td>nyhavn beskrivelse</td>
+            <td>Tags</td>
+        </tr>
+        <tr>
+            <td>Statens Museum for Kunst</td>
+            <td>SSM beskrivelse</td>
+            <td>Tags</td>
+        </tr>
+        <tr>
+            <td>Strøget</td>
+            <td>Strøget beskrivelse</td>
+            <td>Tags</td>
+        </tr>
+        <tr>
+            <td>Tilføj attraktion</td>
+            <td>Tilføj beskrivelse</td>
+            <td>Tilføj tags</td>
+        </tr>
+
+    </table>
+</div>
 </body>
 </html>
