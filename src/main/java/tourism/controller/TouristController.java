@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tourism.model.TouristAttraction;
 import tourism.service.TouristService;
+import org.springframework.ui.Model;
 
-import java.util.*;
-
+import java.util.List;
 
 @Controller
 @RequestMapping("/attractions")
@@ -21,16 +21,16 @@ public class TouristController {
     }
 
     @GetMapping
-    public String showAttractions (Model model) {
+    public String showAttractions(Model model) {
         List<TouristAttraction> attractions = touristService.getAllAttractions();
         model.addAttribute("attractions", attractions);
         return "attractions";
     }
 
-    @GetMapping
+    @GetMapping("/{name}")
     public String showAttractionDetails(@PathVariable String name, Model model) {
         TouristAttraction attraction = touristService.getAttractionByName(name);
-        model.addAttribute("attractions", attractions);
+        model.addAttribute("attraction", attraction);  // Use singular 'attraction' for the object
         return "attractionDetails";
     }
 
@@ -43,7 +43,7 @@ public class TouristController {
     @PostMapping("/update")
     public String updateAttraction(@RequestParam String name, @ModelAttribute TouristAttraction updatedAttraction) {
         touristService.updateAttraction(name, updatedAttraction);
-        return"redirect:/attractions";
+        return "redirect:/attractions";
     }
 
     @PostMapping("/delete/{name}")
@@ -52,5 +52,6 @@ public class TouristController {
         return "redirect:/attractions";
     }
 }
+
 
 
