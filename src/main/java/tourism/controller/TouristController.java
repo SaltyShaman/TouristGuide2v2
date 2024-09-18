@@ -1,6 +1,5 @@
 package tourism.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tourism.model.TouristAttraction;
@@ -55,22 +54,32 @@ public class TouristController {
         touristService.deleteAttraction(name);
         return "redirect:/attractions";
     }
-    @GetMapping("/updateAttraction")
+    @GetMapping("/createAttraction")
     public String showTags(Model model) {
         Set<String> descriptions = touristRepository.getAllDescription();
         Set<String> tags = touristRepository.getAllTags();
         model.addAttribute("tags", tags);
         model.addAttribute("descriptions", descriptions);
-        return "updateAttraction";
+        return "createAttraction";
     }
-    @GetMapping("/form")
-    public String showForm(Model model) {
-        Set<String> descriptions = touristRepository.getAllDescription();
-        model.addAttribute("descriptions", descriptions);
-        return "form";
+    @PostMapping("/addAttraction")
+    public String addAttraction(
+                @RequestParam("navn") String navn,
+                @RequestParam("beskrivelse") String beskrivelse,
+                @RequestParam(value = "descriptions", required = false) List<String> descriptions,
+                @RequestParam(value = "tags", required = false) List<String> tags
+                ) {
+        TouristAttraction newAttraction = new TouristAttraction(navn,beskrivelse,descriptions,tags);
+        touristService.addAttraction(newAttraction);
+        return "redirect:";
+    }
+    @GetMapping("/tags")
+        public String getTagssite(){
+        return "tags";
+
+        }
     }
 
-}
 
 
 

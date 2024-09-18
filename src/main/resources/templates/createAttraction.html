@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" lang="da">
 <head>
-    <link rel="stylesheet" href="/static/updateatt.css">
+    <link th:href="@{/static/createAttractions.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div class="form-container">
     <h2>Tilføj turistattraktion</h2>
-    <form>
+    <form action="/addAttraction" method="post">
         <div class="form-group">
             <label for="navn">Navn:</label>
             <input type="text" id="navn" name="navn">
@@ -27,16 +28,13 @@
                 </th:block>
             </select>
         </div>
-
         <div class="form-group">
-            <form action="/submitTags" method="post">
                 <div th:each="tag: ${tags}">
                     <label>
                         <input type="checkbox" name="tags" th:value="${tag}" th:text="${tag}">
                     </label>
                 </div>
                 <button type="submit">Send</button>
-            </form>
         </div>
     </form>
 </div>
