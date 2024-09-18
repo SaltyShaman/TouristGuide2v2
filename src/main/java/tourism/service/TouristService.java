@@ -43,4 +43,13 @@ public class TouristService {
     public void deleteAttraction(String name) {
         touristRepository.deleteAttraction(name);
     }
+
+    public Set<String> getTags() {
+        return touristRepository.getAllTags();
+
+    }
+    public Set<String> getDescription() {
+        return touristRepository.getAllDescription();
+    }
 }
+

@@ -4,20 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tourism.model.TouristAttraction;
+import tourism.repository.TouristRepository;
 import tourism.service.TouristService;
 import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 //@RequestMapping("/attractions")
 public class TouristController {
 
     private final TouristService touristService;
+    private final TouristRepository touristRepository;
 
-   // @Autowired
-    public TouristController(TouristService touristService) {
+    // @Autowired
+    public TouristController(TouristService touristService, TouristRepository touristRepository) {
         this.touristService = touristService;
+        this.touristRepository = touristRepository;
     }
 
     @GetMapping
@@ -51,6 +55,21 @@ public class TouristController {
         touristService.deleteAttraction(name);
         return "redirect:/attractions";
     }
+    @GetMapping("/updateAttraction")
+    public String showTags(Model model) {
+        Set<String> descriptions = touristRepository.getAllDescription();
+        Set<String> tags = touristRepository.getAllTags();
+        model.addAttribute("tags", tags);
+        model.addAttribute("descriptions", descriptions);
+        return "updateAttraction";
+    }
+    @GetMapping("/form")
+    public String showForm(Model model) {
+        Set<String> descriptions = touristRepository.getAllDescription();
+        model.addAttribute("descriptions", descriptions);
+        return "form";
+    }
+
 }
 
 

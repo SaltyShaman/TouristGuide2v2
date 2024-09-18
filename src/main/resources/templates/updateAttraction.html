@@ -1,52 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="../static/updateatt.css">
+    <link rel="stylesheet" href="/static/updateatt.css">
     <meta charset="UTF-8">
-    <title>Opret Attraktion</title>
+    <title>Title</title>
 </head>
 <body>
-<div>
-    <div class="form-container">
-        <h2>Tilføj Turist Attraktion</h2>
-        <form>
-            <div class="form-group">
-                <label for="navn">Navn:</label>
-                <input type="text" id="navn" name="name">
-            </div>
+<div class="form-container">
+    <h2>Tilføj turistattraktion</h2>
+    <form>
+        <div class="form-group">
+            <label for="navn">Navn:</label>
+            <input type="text" id="navn" name="navn">
+        </div>
 
-            <div class="form-group">
-                <label for="beskrivelse">Beskrivelse:</label>
-                <textarea id="beskrivelse" name="description"></textarea>
-            </div>
+        <div class="form-group">
+            <label for="beskrivelse">Beskrivelse:</label>
+            <textarea id="beskrivelse" name="beskrivelse"></textarea>
+        </div>
 
-            <div class="form-group">
-                <label for="by">By:</label>
-                <select id="by" name="by">
-                    <option value="Albertslund">Albertslund</option>
-                    <option value="København">København</option>
-                    <option value="Aarhus">Aarhus</option>
-                    <option value="Odense">Odense</option>
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="description">By:</label>
+            <select id="description" name="description">
+                <th:block th:each="desc: ${descriptions}">
+                    <option th:value="${desc}" th:text="${desc}"></option>
+                </th:block>
+            </select>
+        </div>
 
-            <div class="form-group">
-                <label>Tags:</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="tags" value="børnevenlig"> Børnevenlig</label>
-                    <label><input type="checkbox" name="tags" value="gratis"> Gratis</label>
-                    <label><input type="checkbox" name="tags" value="kunst"> Kunst</label>
-                    <label><input type="checkbox" name="tags" value="museum"> Museum</label>
-                    <label><input type="checkbox" name="tags" value="natur"> Natur</label>
+        <div class="form-group">
+            <form action="/submitTags" method="post">
+                <div th:each="tag: ${tags}">
+                    <label>
+                        <input type="checkbox" name="tags" th:value="${tag}" th:text="${tag}">
+                    </label>
                 </div>
-            </div>
-
-            <div class="button-group">
-                <button type="submit" class="ok">OK</button>
-                <button type="reset" class="cancel">Fortryd</button>
-            </div>
-        </form>
-    </div>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </form>
 </div>
 </body>
 </html>
