@@ -21,10 +21,22 @@ th, td {
     border-spacing: 0px;
 }
 
+.attractionTable {
+    text-align: center;
+}
+
 .addAttraction {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
     margin-top: 10px;
 }
 
-.attractionTable {
-    text-align: center;
+.addAttraction:hover {
+    background-color: #0056b3;
 }
