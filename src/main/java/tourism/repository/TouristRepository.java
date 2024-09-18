@@ -17,6 +17,7 @@ public class TouristRepository {
         attractions.add(new TouristAttraction("Strøget", "Popular shopping street", List.of("Shopping", "Sightseeing")));
     }
 
+
         // manipulate list
         public List<TouristAttraction> getAllAttractions() {
             return new ArrayList<>(attractions);
