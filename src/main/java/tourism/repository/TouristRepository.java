@@ -11,10 +11,10 @@ public class TouristRepository {
     private final List<TouristAttraction> attractions = new ArrayList<>();
 
     public TouristRepository(){
-        attractions.add(new TouristAttraction("Tivoli", "Amusement park in Copenhagen", List.of("Family", "Entertainment")));
-        attractions.add(new TouristAttraction("Nyhavn", "Historic harbor in Copenhagen", List.of("History", "Food", "Shopping")));
-        attractions.add(new TouristAttraction("Statens Museum for Kunst", "Modern art museum", List.of("Art", "Culture")));
-        attractions.add(new TouristAttraction("Strøget", "Popular shopping street", List.of("Shopping", "Sightseeing")));
+        attractions.add(new TouristAttraction("Tivoli", "Amusement park in Copenhagen", "Vesterbro" ,List.of("Family", "Entertainment")));
+        attractions.add(new TouristAttraction("Nyhavn", "Historic harbor in Copenhagen", "København H" ,List.of("History", "Food", "Shopping")));
+        attractions.add(new TouristAttraction("Statens Museum for Kunst", "Modern art museum", "Østerbro" ,List.of("Art", "Culture")));
+        attractions.add(new TouristAttraction("Strøget", "Popular shopping street", "København H" ,List.of("Shopping", "Sightseeing")));
     }
 
 
