@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Her kan du ændre attraktionen for "<span th:text="${attraction.name}"></span>"</h1>
+<h1>Her kan du ændre attraktionen for <span th:text="${attraction.name}"></span></h1>
 <form th:action="@{/update/{name}(name=${attraction.name})}" th:object="${attraction}" method="post">
   <label for="name">Navn:</label>
   <input type="text" id="name" th:field="*{name}" readonly="readonly"/>
