@@ -66,14 +66,16 @@ public class TouristRepository {
         // update
         public TouristAttraction updateAttraction(TouristAttraction updatedAttraction) {
             for (int i = 0; i < attractions.size(); i++) {
-                TouristAttraction attraction = attractions.get(i);
-                if (attraction.getName().equals(updatedAttraction.getName())) {
-                    attractions.set(i, updatedAttraction); // Replace old attraction with updated one
+                TouristAttraction currentAttraction = attractions.get(i);
+                if (currentAttraction.getName().equals(updatedAttraction.getName())) {
+                    attractions.set(i, updatedAttraction); // Erstat gammel attraktion med opdateret attraktion
                     return updatedAttraction;
                 }
+
             }
-            return null; // Return null if the attraction was not found
+            return null; // Returnér null hvis attraktionen ikke findes
         }
+
 
 
     public void deleteAttraction(String name) {

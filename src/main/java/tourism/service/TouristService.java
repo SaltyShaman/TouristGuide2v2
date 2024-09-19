@@ -43,8 +43,8 @@ public class TouristService {
     }
 
     // Update an existing attraction
-    public void updateAttraction(TouristAttraction updatedAttraction) {
-        touristRepository.updateAttraction(updatedAttraction);
+    public void updateAttraction(TouristAttraction attraction) {
+        touristRepository.updateAttraction(attraction);
     }
 
     // Delete an attraction by name
