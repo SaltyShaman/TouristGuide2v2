@@ -4,10 +4,7 @@ import org.springframework.stereotype.Repository;
 import tourism.controller.TouristController;
 import tourism.model.TouristAttraction;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Repository
 public class TouristRepository {
@@ -18,6 +15,8 @@ public class TouristRepository {
     }
 
     private final List<TouristAttraction> attractions = new ArrayList<>();
+    private final ArrayList<String> cityNames = new ArrayList<>(Arrays.asList("København", "Aarhus", "Odense", "Aalborg", "Esbjerg", "Randers", "Kolding", "Horsens", "Vejle", "Roskilde"));
+
 
     public TouristRepository(){
         attractions.add(new TouristAttraction("Tivoli", "Amusement park in Copenhagen", List.of("Vesterbro") ,List.of("Family", "Entertainment")));
@@ -37,6 +36,7 @@ public class TouristRepository {
         for (TouristAttraction attraction : attractions) {
             district.addAll(attraction.getDistrict());
         }
+        district.addAll(cityNames);
         return district;
     }
     public Set<String> getAllDescription() {
