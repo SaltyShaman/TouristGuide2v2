@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ændre Attraktion</title>
+</head>
+<body>
+
+<h1>Her kan du ændre attraktionen for "<span th:text="${attraction.name}"></span>"</h1>
+<form th:action="@{/update/{name}(name=${attraction.name})}" th:object="${attraction}" method="post">
+  <label for="name">Navn:</label>
+  <input type="text" id="name" th:field="*{name}" readonly="readonly"/>
+
+  <label for="description">Beskrivelse:</label>
+  <input type="text" id="description" th:field="*{description}" />
+
+  <label for="town">Town:</label>
+  <select id="town" th:field="*{district}">
+    <option th:each="town : ${allTowns}" th:value="${town}" th:text="${town}"></option>
+  </select>
+
+  <h3>Select Tags</h3>
+  <ul>
+    <li th:each="tag : ${allTags}">
+      <label>
+        <input type="checkbox" th:value="${tag}" th:field="*{tags}" th:checked="${attraction.tags.contains(tag)}"/>
+        <span th:text="${tag}"></span>
+      </label>
+    </li>
+  </ul>
+
+  <input type="submit" value="Opdater">
+</form>
+
+</body>
+</html>

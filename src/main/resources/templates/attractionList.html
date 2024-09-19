@@ -24,44 +24,33 @@ TO-DO:
 <h1>Tourist attractions</h1>
 <div class = "attractionTable">
     <table>
+        <thead>
         <tr>
             <th>Navn</th>
             <th>Beskrivelse</th>
+            <th>By</th>
             <th>Tags</th>
         </tr>
-        <tr>
-            <td>Tivoli</td>
-            <td>Forlystelsespark til alle aldre</td>
+        </thead>
+        <tbody>
+        <tr th:each="attraction : ${attractions}">
+            <td th:text="${attraction.name}"> Attraktion navn</td>
+            <td th:text="${attraction.description}"> Attraktion beskrivelse </td>
+            <td th:text="${attraction.getDistrict()}">Attraktion by</td>
             <td>
-                <button>Tags</button> //føre til tags.html
+                <ul>
+                    <li th:each="tag: ${attraction.tags}" th:text="${tag}"></li>
+                </ul>
+                <form action="#" th:action="@{/tags/{name}(name=${attraction.name})}" method="get"> <button>Tags</button></form>
+                <form action="#" th:action="@{/delete/{name}(name=${attraction.name})}" method="post"><button>Slet</button> </form>
+                <form action="#" th:action="@{/update/{name}(name=${attraction.name})}" method="get"> <button>Opdater</button></form>
                 </td>
         </tr>
-        <tr>
-            <td>Nyhavn</td>
-            <td>Gammel havn med farverige bygninger og masser af gadeliv</td>
-            <td>
-                <button>Tags</button> //føre til tags.html
-                </td>
-        </tr>
-        <tr>
-            <td>Statens Museum for Kunst</td>
-            <td>Galleri med malerier fra danmarks mest anerkendte kunstnere</td>
-            <td>
-                <button>Tags</button> //føre til tags.html
-                </td>
-        </tr>
-        <tr>
-            <td>Strøget</td>
-            <td>Shopping distrikt med cafeer og varm atmosfære</td>
-            <td>
-                <form action="/tags"><button>Tags</button> //føre til tags.html</form>
-                </td>
-        </tr>
+        </tbody>
     </table>
-    //føre til updateAttraction.html
-    Opgaven er lavet.
 
     <form action="/createAttraction"> <button class = "addAttraction">Tilføj attraktion</button></form>
+
 </div>
 </body>
 </html>

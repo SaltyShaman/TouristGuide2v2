@@ -32,6 +32,13 @@ public class TouristRepository {
         }
         return tags;
     }
+    public Set<String> getAllDistrict() {
+        Set<String> district = new HashSet<>();
+        for (TouristAttraction attraction : attractions) {
+            district.addAll(attraction.getDistrict());
+        }
+        return district;
+    }
     public Set<String> getAllDescription() {
         Set<String> descriptions = new HashSet<>();
         for (TouristAttraction attraction : attractions) {
@@ -57,14 +64,17 @@ public class TouristRepository {
         attractions.add(attraction);
     }
         // update
-    public void updateAttraction(String name, TouristAttraction updatedAttraction) {
-        for (int i = 0; i < attractions.size(); i++) {
-            if (attractions.get(i).getName().equalsIgnoreCase(name)) {
-                attractions.set(i, updatedAttraction);
-                return;
+        public TouristAttraction updateAttraction(TouristAttraction updatedAttraction) {
+            for (int i = 0; i < attractions.size(); i++) {
+                TouristAttraction attraction = attractions.get(i);
+                if (attraction.getName().equals(updatedAttraction.getName())) {
+                    attractions.set(i, updatedAttraction); // Replace old attraction with updated one
+                    return updatedAttraction;
+                }
             }
+            return null; // Return null if the attraction was not found
         }
-    }
+
 
     public void deleteAttraction(String name) {
         attractions.removeIf(attraction -> attraction.getName().equalsIgnoreCase(name));
