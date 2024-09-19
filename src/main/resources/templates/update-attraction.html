@@ -4,34 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ændre Attraktion</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<h1>Her kan du ændre attraktionen for <span th:text="${attraction.name}"></span></h1>
-<form th:action="@{/update/{name}(name=${attraction.name})}" th:object="${attraction}" method="post">
-  <label for="name">Navn:</label>
-  <input type="text" id="name" th:field="*{name}" readonly="readonly"/>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Ændre attraktionen for <span th:text="${attraction.name}"></span></h1>
 
-  <label for="description">Beskrivelse:</label>
-  <input type="text" id="description" th:field="*{description}" />
+  <!-- Form for updating the attraction -->
+  <form th:action="@{/update/{name}(name=${attraction.name})}" th:object="${attraction}" method="post" class="needs-validation" novalidate>
+    <!-- Name Field (readonly) -->
+    <div class="mb-3">
+      <label for="name" class="form-label">Navn:</label>
+      <input type="text" id="name" th:field="*{name}" class="form-control" readonly="readonly" required />
+    </div>
 
-  <label for="town">Town:</label>
-  <select id="town" th:field="*{district}">
-    <option th:each="town : ${allTowns}" th:value="${town}" th:text="${town}"></option>
-  </select>
+    <!-- Description Field -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Beskrivelse:</label>
+      <input type="text" id="description" th:field="*{description}" class="form-control" required />
+    </div>
 
-  <h3>Select Tags</h3>
-  <ul>
-    <li th:each="tag : ${allTags}">
-      <label>
-        <input type="checkbox" th:value="${tag}" th:field="*{tags}" th:checked="${attraction.tags.contains(tag)}"/>
-        <span th:text="${tag}"></span>
-      </label>
-    </li>
-  </ul>
+    <!-- Town Selection Dropdown -->
+    <div class="mb-3">
+      <label for="town" class="form-label">By:</label>
+      <select id="town" th:field="*{district}" class="form-select" required>
+        <option th:each="town : ${allTowns}" th:value="${town}" th:text="${town}">Vælg en by</option>
+      </select>
+    </div>
 
-  <input type="submit" value="Opdater">
-</form>
+    <!-- Tags Section -->
+    <h3 class="mb-3">Vælg Tags</h3>
+    <div class="mb-3">
+      <ul class="list-group">
+        <li class="list-group-item" th:each="tag : ${allTags}">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" th:value="${tag}" th:field="*{tags}" th:checked="${attraction.tags.contains(tag)}">
+            <label class="form-check-label" th:text="${tag}"></label>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary btn-lg">Opdater</button>
+    </div>
+  </form>
+</div>
+
+<!-- Bootstrap JS (optional for additional Bootstrap components) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

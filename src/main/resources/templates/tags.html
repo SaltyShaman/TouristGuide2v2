@@ -1,16 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" lang="da">
 <head>
-    <link rel="stylesheet" href="/static/main.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attraction Tags</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS (optional if you want additional styling) -->
+    <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
-<div>
-    <h1>Her kan du se alle tags for: <span th:text="${attraction.name}"></span></h1>
-    <ul>
-        <li th:each="tag : ${attraction.tags}" th:text="${tag}"></li>
-    </ul>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Tags for: <span th:text="${attraction.name}"></span></h1>
+
+    <!-- Tags List -->
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Tag liste</h4>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="tag : ${attraction.tags}" th:text="${tag}">Tag navn</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Button to go back or perform other actions -->
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-primary">Tilbage til attraktioner</a>
+    </div>
 </div>
+
+<!-- Bootstrap JS (optional if you need Bootstrap components like modals) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
