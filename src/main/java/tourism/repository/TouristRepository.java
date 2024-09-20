@@ -47,10 +47,10 @@ public class TouristRepository {
         return descriptions;
     }
 
-        // manipulate list
-        public List<TouristAttraction> getAllAttractions() {
-            return new ArrayList<>(attractions);
-        }
+    // manipulate list
+    public List<TouristAttraction> getAllAttractions() {
+        return new ArrayList<>(attractions);
+    }
 
 
     public TouristAttraction getAttractionByName(String name) {
@@ -63,18 +63,18 @@ public class TouristRepository {
     public void addAttraction(TouristAttraction attraction) {
         attractions.add(attraction);
     }
-        // update
-        public TouristAttraction updateAttraction(TouristAttraction updatedAttraction) {
-            for (int i = 0; i < attractions.size(); i++) {
-                TouristAttraction currentAttraction = attractions.get(i);
-                if (currentAttraction.getName().equals(updatedAttraction.getName())) {
-                    attractions.set(i, updatedAttraction); // Erstat gammel attraktion med opdateret attraktion
-                    return updatedAttraction;
-                }
-
+    // update
+    public TouristAttraction updateAttraction(TouristAttraction updatedAttraction) {
+        for (int i = 0; i < attractions.size(); i++) {
+            TouristAttraction currentAttraction = attractions.get(i);
+            if (currentAttraction.getName().equals(updatedAttraction.getName())) {
+                attractions.set(i, updatedAttraction); // Erstat gammel attraktion med opdateret attraktion
+                return updatedAttraction;
             }
-            return null; // Returnér null hvis attraktionen ikke findes
+
         }
+        return null; // Returnér null hvis attraktionen ikke findes
+    }
 
 
 

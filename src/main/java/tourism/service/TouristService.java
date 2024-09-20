@@ -27,11 +27,11 @@ public class TouristService {
     public List<TouristAttraction> getAllAttractions() {
         return touristRepository.getAllAttractions();
     }
-    
+
     public static Set<String> getAllDistricts() {
         return touristRepository.getAllDistrict();
     }
-    
+
     // Get an attraction by name
     public TouristAttraction getAttractionByName(String name) {
         return touristRepository.getAttractionByName(name);

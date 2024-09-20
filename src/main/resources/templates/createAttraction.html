@@ -13,7 +13,7 @@
     <h2 class="text-center mb-4">Tilføj turistattraktion</h2>
 
     <!-- Form for adding an attraction -->
-    <form th:action = "@{/addAttraction}" method="post" class="needs-validation" novalidate>
+    <form action="/addAttraction" method="post" class="needs-validation" novalidate>
 
         <!-- Name Field -->
         <div class="mb-3">
@@ -31,28 +31,24 @@
         <div class="mb-3">
             <label for="description" class="form-label">By:</label>
             <select id="description" name="description" class="form-select" required>
-                <option value="" disabled selected>Vælg en by</option>
-                <option th:each="desc : ${descriptions}" th:value="${desc}" th:text="${desc}"></option>
+                <option th:each="desc : ${descriptions}" th:value="${desc}" th:text="${desc}">Vælg en by</option>
             </select>
         </div>
 
-        <!-- Tags Checkboxes -->
         <div class="mb-3">
             <label class="form-label">Vælg Tags:</label>
             <div th:each="tag : ${tags}" class="form-check">
                 <input class="form-check-input" type="checkbox" name="tags" th:value="${tag}" id="tag-[[${tag}]]">
-                <label class="form-check-label" th:for="tag-[[${tag}]]" th:text="${tag}"></label>
+                <label class="form-check-label" for="tag-[[${tag}]]" th:text="${tag}"></label>
             </div>
         </div>
 
-        <!-- Submit Button -->
         <div class="d-grid">
             <button type="submit" class="btn btn-primary btn-lg">Send</button>
         </div>
     </form>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
