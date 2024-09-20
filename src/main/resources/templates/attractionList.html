@@ -59,6 +59,10 @@ TO-DO:
         </tr>
     </table>
    <a href="createAttraction.html" class="addAttraction">Tilføj attraktion</a>
+
+    <form th:action="@{/delete/{name}(name=${attraction.name})}" method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
 </div>
 </body>
 </html>

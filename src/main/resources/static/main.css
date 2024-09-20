@@ -40,3 +40,14 @@ th, td {
 .addAttraction:hover {
     background-color: #0056b3;
 }
+
+.tagsButton {
+    display: inline-block;
+    padding: 10px, 20x;
+    background-color: #f44336;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+
+}

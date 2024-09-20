@@ -22,12 +22,13 @@ public class TouristController {
         this.touristRepository = touristRepository;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String showAttractions(Model model) {
         List<TouristAttraction> attractions = touristService.getAllAttractions();
         model.addAttribute("attractions", attractions);
-        return "attractionList";
+        return "attractionList";  // Return the view for listing attractions
     }
+
     @GetMapping("/createAttraction")
     public String createAttraction(Model model) {
         Set<String> allTowns = touristRepository.getAllDistrict(); // Hent alle towns
@@ -35,27 +36,33 @@ public class TouristController {
         model.addAttribute("descriptions", allTowns);
         model.addAttribute("tags", allTags);
         return "createAttraction";
+    }
 
+    @GetMapping("/addAttraction")
+    public String showAttractionForm(Model model) {
+        Set<String> allTowns = touristService.getAllDistricts(); // Get all districts
+        Set<String> allTags = touristService.getAllTags();       // Get all tags
+        model.addAttribute("descriptions", allTowns);
+        model.addAttribute("tags", allTags);
+        return "createAttraction";  // Return the form page
     }
 
     @PostMapping("/addAttraction")
     public String addAttraction(@RequestParam("navn") String name,
                                 @RequestParam("beskrivelse") String description,
-                                @RequestParam("description") List<String> town,
+                                @RequestParam("description") String town,
                                 @RequestParam("tags") List<String> tags) {
-        // Opret en ny attraktion baseret på formularens data
-        TouristAttraction newAttraction = new TouristAttraction(name,description,town,tags);
-        newAttraction.setName(name);
-        newAttraction.setDescription(description);
-        newAttraction.setDistrict(town);
-        newAttraction.setTags(tags); // Sæt de valgte tags
+        // Create a new tourist attraction object based on form data
+        TouristAttraction newAttraction = new TouristAttraction(name, description, List.of(town), tags);
 
-        // Gem attraktionen ved hjælp af touristService
+        // Save the new attraction using the service layer
         touristService.addAttraction(newAttraction);
 
-        // Redirect til en side, f.eks. listen over attraktioner
-        return "redirect:/"; // Redirect til listen over attraktioner
+        // Redirect to the main page (or attraction list) after submission
+        return "redirect:/attractionList";
     }
+
+
     @GetMapping("/tags/{name}")
     public String showAttractionDetails(@PathVariable String name, Model model) {
         TouristAttraction attraction = touristService.getAttractionByName(name);
@@ -77,18 +84,19 @@ public class TouristController {
         model.addAttribute("allTags", allTags);
         model.addAttribute("allTowns", allDistricts);
         model.addAttribute("attraction", attraction);
-        return "update-attraction";
+        return "update-attraction";  // Returns a view for updating an attraction
     }
 
     @PostMapping("/update")
     public String updateAttraction(@ModelAttribute TouristAttraction attraction) {
         touristService.updateAttraction(attraction);
-        return "redirect:/"; // Omdiriger til listen over attraktioner
+        return "redirect:/";  // Redirect to the main page after updating
     }
+
     @PostMapping("/delete/{name}")
     public String deleteAttraction(@PathVariable("name") String name) {
         touristService.deleteAttraction(name);
-        return "redirect:/";
+        return "redirect:/";  // Redirect to the list after deletion
     }
 }
 
