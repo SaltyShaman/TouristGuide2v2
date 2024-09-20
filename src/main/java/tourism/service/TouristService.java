@@ -12,18 +12,26 @@ import java.util.*;
 @Service
 public class TouristService {
 
-    private final TouristRepository touristRepository;
+    private static TouristRepository touristRepository = new TouristRepository();
 
-    //@Autowired
+    @Autowired
     public TouristService(TouristRepository touristRepository) {
         this.touristRepository = touristRepository;
+    }
+
+    public static Set<String> getAllTags() {
+        return touristRepository.getAllTags();
     }
 
     // Get all attractions
     public List<TouristAttraction> getAllAttractions() {
         return touristRepository.getAllAttractions();
     }
-
+    
+    public static Set<String> getAllDistricts() {
+        return touristRepository.getAllDistrict();
+    }
+    
     // Get an attraction by name
     public TouristAttraction getAttractionByName(String name) {
         return touristRepository.getAttractionByName(name);
@@ -35,12 +43,21 @@ public class TouristService {
     }
 
     // Update an existing attraction
-    public void updateAttraction(String name, TouristAttraction updatedAttraction) {
-        touristRepository.updateAttraction(name, updatedAttraction);
+    public void updateAttraction(TouristAttraction attraction) {
+        touristRepository.updateAttraction(attraction);
     }
 
     // Delete an attraction by name
     public void deleteAttraction(String name) {
         touristRepository.deleteAttraction(name);
     }
+
+    public Set<String> getTags() {
+        return touristRepository.getAllTags();
+
+    }
+    public Set<String> getDescription() {
+        return touristRepository.getAllDescription();
+    }
 }
+

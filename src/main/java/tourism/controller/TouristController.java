@@ -1,23 +1,25 @@
 package tourism.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tourism.model.TouristAttraction;
+import tourism.repository.TouristRepository;
 import tourism.service.TouristService;
-import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
-//@RequestMapping("/attractions")
 public class TouristController {
 
     private final TouristService touristService;
+    private final TouristRepository touristRepository;
 
-   // @Autowired
-    public TouristController(TouristService touristService) {
+    // @Autowired
+    public TouristController(TouristService touristService, TouristRepository touristRepository) {
         this.touristService = touristService;
+        this.touristRepository = touristRepository;
     }
 
     @GetMapping
@@ -26,8 +28,35 @@ public class TouristController {
         model.addAttribute("attractions", attractions);
         return "attractionList";
     }
+    @GetMapping("/createAttraction")
+    public String createAttraction(Model model) {
+        Set<String> allTowns = touristRepository.getAllDistrict(); // Hent alle towns
+        Set<String> allTags = touristRepository.getAllTags(); // Hent alle tags
+        model.addAttribute("descriptions", allTowns);
+        model.addAttribute("tags", allTags);
+        return "createAttraction";
 
-    @GetMapping("/{name}")
+    }
+
+    @PostMapping("/addAttraction")
+    public String addAttraction(@RequestParam("navn") String name,
+                                @RequestParam("beskrivelse") String description,
+                                @RequestParam("description") List<String> town,
+                                @RequestParam("tags") List<String> tags) {
+        // Opret en ny attraktion baseret på formularens data
+        TouristAttraction newAttraction = new TouristAttraction(name,description,town,tags);
+        newAttraction.setName(name);
+        newAttraction.setDescription(description);
+        newAttraction.setDistrict(town);
+        newAttraction.setTags(tags); // Sæt de valgte tags
+
+        // Gem attraktionen ved hjælp af touristService
+        touristService.addAttraction(newAttraction);
+
+        // Redirect til en side, f.eks. listen over attraktioner
+        return "redirect:/"; // Redirect til listen over attraktioner
+    }
+    @GetMapping("/tags/{name}")
     public String showAttractionDetails(@PathVariable String name, Model model) {
         TouristAttraction attraction = touristService.getAttractionByName(name);
         model.addAttribute("attraction", attraction);  // Use singular 'attraction' for the object
@@ -40,18 +69,29 @@ public class TouristController {
         return "redirect:/attractions";
     }
 
-    @PostMapping("/update")
-    public String updateAttraction(@RequestParam String name, @ModelAttribute TouristAttraction updatedAttraction) {
-        touristService.updateAttraction(name, updatedAttraction);
-        return "redirect:/attractions";
+    @GetMapping("/update/{name}")
+    public String updateAttraction(@PathVariable String name, Model model) {
+        TouristAttraction attraction = touristService.getAttractionByName(name);
+        Set<String> allTags = TouristService.getAllTags();
+        Set<String> allDistricts = TouristService.getAllDistricts();
+        model.addAttribute("allTags", allTags);
+        model.addAttribute("allTowns", allDistricts);
+        model.addAttribute("attraction", attraction);
+        return "update-attraction";
     }
 
+    @PostMapping("/update")
+    public String updateAttraction(@ModelAttribute TouristAttraction attraction) {
+        touristService.updateAttraction(attraction);
+        return "redirect:/"; // Omdiriger til listen over attraktioner
+    }
     @PostMapping("/delete/{name}")
-    public String deleteAttraction(@PathVariable String name) {
+    public String deleteAttraction(@PathVariable("name") String name) {
         touristService.deleteAttraction(name);
-        return "redirect:/attractions";
+        return "redirect:/";
     }
 }
+
 
 
 
